@@ -39,6 +39,9 @@ class MpiAdam(object):
         self.m = self.beta1 * self.m + (1 - self.beta1) * globalg
         self.v = self.beta2 * self.v + (1 - self.beta2) * (globalg * globalg)
         step = (- a) * self.m / (np.sqrt(self.v) + self.epsilon)
+        if np.any(np.isnan(step)):
+            raise ValueError("nan detected in mpi_adam. a: {}, m: {}, v: {}, eps: {}".format(
+                a, self.m, self.v, self.epsilon))
         self.setfromflat(self.getflat() + step)
 
     def sync(self):

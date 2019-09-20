@@ -126,7 +126,8 @@ def conv2d(x, num_filters, name, filter_size=(3, 3), stride=(1, 1), pad="SAME", 
             tf.summary.image(summary_tag,
                              tf.transpose(tf.reshape(w, [filter_size[0], filter_size[1], -1, 1]),
                                           [2, 0, 1, 3]),
-                             max_images=10)
+#                              max_images=10,
+                             )
 
         return tf.nn.conv2d(x, w, stride_shape, pad) + b
 
